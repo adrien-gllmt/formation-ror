@@ -10,24 +10,66 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_24_194214) do
-  create_table "products", charset: "utf8", force: :cascade do |t|
-    t.string "product_vendor"
-    t.string "product_brand"
-    t.string "product_ref"
-    t.integer "product_avail"
-    t.integer "product_price"
-    t.bigint "vendor_id"
+ActiveRecord::Schema[7.0].define(version: 2022_11_03_193340) do
+  create_table "brands", charset: "utf8", force: :cascade do |t|
+    t.string "brand_name"
+    t.bigint "supplier_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["vendor_id"], name: "index_products_on_vendor_id"
+    t.index ["supplier_id"], name: "index_brands_on_supplier_id"
   end
 
-  create_table "vendors", charset: "utf8", force: :cascade do |t|
-    t.string "vendor_name"
-    t.integer "vendor_coeff"
+  create_table "employees", charset: "utf8", force: :cascade do |t|
+    t.string "empl_code"
+    t.string "empl_name"
+    t.string "empl_surname"
+    t.string "empl_email"
+    t.string "empl_password"
+    t.bigint "shop_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["shop_id"], name: "index_employees_on_shop_id"
+  end
+
+  create_table "products", charset: "utf8", force: :cascade do |t|
+    t.string "product_ref"
+    t.string "product_size"
+    t.string "product_color_code"
+    t.string "product_color_descr"
+    t.string "product_gender"
+    t.string "product_style"
+    t.string "product_type"
+    t.string "product_material"
+    t.bigint "brand_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand_id"], name: "index_products_on_brand_id"
+  end
+
+  create_table "shops", charset: "utf8", force: :cascade do |t|
+    t.string "shop_code"
+    t.string "shop_name"
+    t.float "shop_lat"
+    t.float "shop_long"
+    t.integer "shop_cp"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stocks", charset: "utf8", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "shop_id"
+    t.integer "available"
+    t.integer "booked"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_stocks_on_product_id"
+    t.index ["shop_id"], name: "index_stocks_on_shop_id"
+  end
+
+  create_table "suppliers", charset: "utf8", force: :cascade do |t|
+    t.string "supp_name"
+    t.float "supp_coeff"
   end
 
 end
