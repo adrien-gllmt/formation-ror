@@ -124,3 +124,4 @@ Stock.create(
 )
 
 puts Stock.out_of_stock
+# Equivalent IN en SQL (findAllById)
