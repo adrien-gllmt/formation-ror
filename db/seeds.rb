@@ -17,6 +17,7 @@ suppliers.each do |supplier|
 end
 
 puts Supplier.get_supplier_id('ALTITUDE EYEWEAR')
+puts '---'
 
 # Creating brands
 brands = [
@@ -107,3 +108,19 @@ Stock.create(
   available: 0,
   booked: 0
 )
+
+Stock.create(
+  product_id: Product.get_product_id('LARL6001'),
+  shop_id: Shop.get_shop_id('LKT00001'),
+  available: 0,
+  booked: 1
+)
+
+Stock.create(
+  product_id: Product.get_product_id('PLC305'),
+  shop_id: Shop.get_shop_id('LKT00001'),
+  available: 1,
+  booked: 1
+)
+
+puts Stock.out_of_stock
